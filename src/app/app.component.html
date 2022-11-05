@@ -1,1 +1,16 @@
-<app-line-chart [data]="data"></app-line-chart>
+<mat-toolbar>
+  <span></span>
+  <span class="page-title">Stocks</span>
+  <button mat-icon-button aria-label="Toggle drawer" (click)="drawer.toggle()">
+    <mat-icon>chat</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-drawer-container>
+  <mat-drawer #drawer position="end" mode="side">
+    <app-comments></app-comments>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-line-chart *ngFor="let item of dataSet" [item]="item"></app-line-chart>
+  </mat-drawer-content>
+</mat-drawer-container>

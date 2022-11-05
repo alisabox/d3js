@@ -15,3 +15,9 @@ export interface IApiModel {
   date: Date;
   close: number;
 }
+
+export interface IDataSet {
+  symbol: string,
+  data: IApiModel[],
+  name: string,
+}

@@ -6,19 +6,24 @@ import {
   NgZone,
 } from '@angular/core';
 import * as d3 from 'd3';
-import {IApiModel} from "../../shared/models/api.model";
+import {IApiModel, IDataSet} from "../../shared/models/api.model";
 
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
 })
 export class LineChartComponent implements AfterViewInit {
-  _data: IApiModel[] = [];
+  private _data: IApiModel[] = [];
+  private _symbol: string = '';
+  private _name: string = '';
+
   public container: HTMLElement | null = null;
 
   @Input()
-  set data(value: IApiModel[]) {
-    this._data = value.slice(value.length - 365);
+  set item(value: IDataSet) {
+    this._symbol = value.symbol;
+    this._name = value.name;
+    this._data = value.data.slice(value.data.length - 365);
   }
 
   constructor(
@@ -38,7 +43,7 @@ export class LineChartComponent implements AfterViewInit {
   private _buildChart(): void {
     this._zone.runOutsideAngular(() => {
       if (this._data.length) {
-        this.container?.append(this._lineChart(this._data, "Daily close ($)"));
+        this.container?.append(this._lineChart(this._data, `${this._name} (${this._symbol})`));
       }
     })
   }
@@ -54,7 +59,7 @@ export class LineChartComponent implements AfterViewInit {
 
     const size = {
       width: 640,
-      height: 500,
+      height: 350,
     }
 
     const color = {
@@ -69,7 +74,8 @@ export class LineChartComponent implements AfterViewInit {
 
     // Compute default domains.
     const xDomain = d3.extent(X);
-    const yDomain = ['0', d3.max(Y)?.toString() ?? ''];
+    const maxY = d3.max(Y);
+    const yDomain = ['0', !!maxY && maxY > 400 ? maxY.toString() : 400];
 
     // Construct scales and axes.
     const xScale = d3.scaleUtc(xDomain as Iterable<d3.NumberValue>, [margin.left, size.width - margin.right]);
@@ -108,7 +114,7 @@ export class LineChartComponent implements AfterViewInit {
         .attr("text-anchor", "start")
         .attr("font-size", "22px")
         .attr("font-weight", "700")
-        .attr("transform", "translate(250, 10)")
+        .attr("transform", `translate(${margin.left},0)`)
         .text(label));
 
     // Construct gradients used by chart line and chart area
