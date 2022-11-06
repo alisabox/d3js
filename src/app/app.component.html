@@ -8,7 +8,10 @@
 
 <mat-drawer-container>
   <mat-drawer #drawer position="end" mode="side">
-    <app-comments></app-comments>
+    <app-comments
+      (sendMessageEvent)="sendMessage($event)"
+      [messages]="messages"
+    ></app-comments>
   </mat-drawer>
   <mat-drawer-content>
     <app-line-chart *ngFor="let item of dataSet" [item]="item"></app-line-chart>

@@ -21,3 +21,8 @@ export interface IDataSet {
   data: IApiModel[],
   name: string,
 }
+
+export interface IMessage {
+  message: string;
+  name: string;
+}

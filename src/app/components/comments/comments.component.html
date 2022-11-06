@@ -1,59 +1,13 @@
 <div class="form-wrapper">
   <div class="comments">
     <div>
-      <mat-card class="comment">
-        <mat-card-subtitle>Space Spy</mat-card-subtitle>
+      <mat-card
+        *ngFor="let message of messages"
+        [ngClass]="message.name === nameFormControl.value ? 'user-comment' : 'comment'"
+      >
+        <mat-card-subtitle>{{ message.name }}</mat-card-subtitle>
         <mat-card-content>
-          <p>Too dark. I better like sites with light themes.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="user-comment">
-        <mat-card-subtitle>Shiba Inu</mat-card-subtitle>
-        <mat-card-content>
-          <p>Funny, I thought someone related to space wouldn't mind some darkness. ;)</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="comment">
-        <mat-card-subtitle>Space Spy</mat-card-subtitle>
-        <mat-card-content>
-          <p>Too dark. I better like sites with light themes.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="user-comment">
-        <mat-card-subtitle>Shiba Inu</mat-card-subtitle>
-        <mat-card-content>
-          <p>Funny, I thought someone related to space wouldn't mind some darkness. ;)</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="comment">
-        <mat-card-subtitle>Space Spy</mat-card-subtitle>
-        <mat-card-content>
-          <p>Too dark. I better like sites with light themes.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="user-comment">
-        <mat-card-subtitle>Shiba Inu</mat-card-subtitle>
-        <mat-card-content>
-          <p>Funny, I thought someone related to space wouldn't mind some darkness. ;)</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="comment">
-        <mat-card-subtitle>Space Spy</mat-card-subtitle>
-        <mat-card-content>
-          <p>Too dark. I better like sites with light themes.</p>
-        </mat-card-content>
-      </mat-card>
-
-      <mat-card class="user-comment">
-        <mat-card-subtitle>Shiba Inu</mat-card-subtitle>
-        <mat-card-content>
-          <p>Funny, I thought someone related to space wouldn't mind some darkness. ;)</p>
+          <p>{{ message.message }}</p>
         </mat-card-content>
       </mat-card>
     </div>
@@ -62,16 +16,16 @@
   <form class="form">
     <mat-form-field class="form-field" appearance="fill" color="accent">
       <mat-label>Leave a comment</mat-label>
-      <textarea class="textarea" matInput [formControl]="commentFormControl"></textarea>
+      <textarea #comment class="textarea" matInput [formControl]="commentFormControl"></textarea>
     </mat-form-field>
 
     <div class="form-field-wrapper">
       <mat-form-field class="name-input" appearance="fill" color="accent">
         <mat-label>Your name</mat-label>
-        <input type="name" matInput [formControl]="nameFormControl">
+        <input #name type="name" matInput [formControl]="nameFormControl">
       </mat-form-field>
 
-      <button class="submit-button" mat-stroked-button color="accent">Send</button>
+      <button class="submit-button" mat-stroked-button color="accent" (click)="sendMessage(comment.value, name.value); $event.preventDefault()">Send</button>
     </div>
   </form>
 </div>

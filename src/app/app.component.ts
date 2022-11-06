@@ -3,8 +3,12 @@ import {
   OnInit,
 } from '@angular/core';
 import { ApiService } from "./shared/services/api.service";
-import { IDataSet } from "./shared/models/api.model";
+import {
+  IDataSet,
+  IMessage
+} from "./shared/models/api.model";
 import { dataTesla, dataApple, dataGoogle, dataMS } from "./shared/services/data";
+import { webSocket } from "rxjs/webSocket";
 
 @Component({
   selector: 'app-root',
@@ -19,8 +23,15 @@ export class AppComponent implements OnInit {
     { symbol: 'GOOG', data: dataGoogle, name: 'Google' },
   ];
 
+  private _socket = webSocket<IMessage>('ws://localhost:4300/');
+  private _messages: IMessage[] = [];
+
   public get dataSet(): IDataSet[] {
     return this._dataSet;
+  }
+
+  public get messages(): IMessage[] {
+    return this._messages;
   }
 
   constructor(private readonly _apiService: ApiService) { }
@@ -31,5 +42,11 @@ export class AppComponent implements OnInit {
     //     item.data = data;
     //   });
     // });
+
+    this._socket.subscribe((data) => this._messages = [...this._messages, data]);
+  }
+
+  public sendMessage(data: IMessage) {
+    this._socket.next(data);
   }
 }
