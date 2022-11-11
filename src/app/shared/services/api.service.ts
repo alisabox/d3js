@@ -16,6 +16,8 @@ export class ApiService {
     private readonly _httpClient: HttpClient,
   ) { }
 
+  // disabled until database realization
+
   // public getData(symbol: string): Observable<IApiModel[]> {
   //   return this._httpClient.request<IApiResponse>('get', BASE_URL + symbol + BASE_PARAMS, { headers: this._getHeaders() })
   //     .pipe(
