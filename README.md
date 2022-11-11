@@ -1,6 +1,7 @@
 # Stocks Project
 
-Desktop-only app done with Angular version 14.0.4.
+Simple desktop-only app done with Angular and Angular Material.
+
 Stock trends charts on D3js and a real-time chat using websockets.   
 
 ## Running project
@@ -17,3 +18,7 @@ To run the websockets server run:
 ```
 npm run server
 ```
+
+## UI
+
+![Screenshot](https://user-images.githubusercontent.com/77010822/201345713-37f07b79-9953-40b4-a822-b26d21d0518f.jpg)
