@@ -1,7 +1,9 @@
-import * as http from 'http';
 import { WebSocket, WebSocketServer } from 'ws';
+import http from 'http';
+import app from './app';
 
-const server = http.createServer((_req, _res) => {});
+const server = http.createServer(app);
+
 const webSocket = new WebSocketServer({ server });
 
 webSocket.on('connection', socket => {
@@ -13,7 +15,10 @@ webSocket.on('connection', socket => {
       }
     })
   })
-})
+});
 
-server.listen(4300, () => console.log('Server is listening'));
+const PORT = 4300;
 
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
