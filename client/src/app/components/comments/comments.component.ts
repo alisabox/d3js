@@ -2,15 +2,15 @@ import {
   Component,
   EventEmitter,
   Input,
-  Output
+  Output,
 } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import {IMessage} from "../../shared/models/api.model";
+import { IMessage } from "../../shared/models/api.model";
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.css']
+  styleUrls: ['./comments.component.css'],
 })
 export class CommentsComponent {
   public nameFormControl = new FormControl('', []);

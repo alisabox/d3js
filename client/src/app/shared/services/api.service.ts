@@ -1,15 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
 import { catchError, EMPTY, map, Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { IApiModel, IApiResponse } from "../models/api.model";
-import {RAPID_KEY} from "../../../environments/environment";
+// import { RAPID_KEY } from "../../../environments/environment";
 
 const BASE_URL = 'https://yahoo-finance15.p.rapidapi.com/api/yahoo/hi/history/';
 const BASE_PARAMS = '/1d?diffandsplits=false';
 const RAPID_HOST = 'yahoo-finance15.p.rapidapi.com';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   constructor(
@@ -30,7 +31,7 @@ export class ApiService {
 
   private _getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'X-RapidAPI-Key': RAPID_KEY,
+      // 'X-RapidAPI-Key': RAPID_KEY,
       'X-RapidAPI-Host': RAPID_HOST,
     });
   }

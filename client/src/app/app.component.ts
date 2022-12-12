@@ -5,7 +5,7 @@ import {
 import { ApiService } from "./shared/services/api.service";
 import {
   IDataSet,
-  IMessage
+  IMessage,
 } from "./shared/models/api.model";
 import { dataTesla, dataApple, dataGoogle, dataMS } from "./shared/services/data";
 import { webSocket } from "rxjs/webSocket";
@@ -13,7 +13,7 @@ import { webSocket } from "rxjs/webSocket";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
   private _dataSet: IDataSet[] = [

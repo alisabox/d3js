@@ -6,7 +6,10 @@ import {
   NgZone,
 } from '@angular/core';
 import * as d3 from 'd3';
-import {IApiModel, IDataSet} from "../../shared/models/api.model";
+import {
+  IApiModel,
+  IDataSet,
+} from "../../shared/models/api.model";
 
 @Component({
   selector: 'app-line-chart',
@@ -45,7 +48,7 @@ export class LineChartComponent implements AfterViewInit {
       if (this._data.length) {
         this.container?.append(this._lineChart(this._data, `${this._name} (${this._symbol})`));
       }
-    })
+    });
   }
 
   private _lineChart(data: IApiModel[], label: string): Node {
@@ -55,17 +58,17 @@ export class LineChartComponent implements AfterViewInit {
       right: 30,
       bottom: 30,
       left: 40,
-    }
+    };
 
     const size = {
       width: 640,
       height: 350,
-    }
+    };
 
     const color = {
       background: "#1e2730",
       axis: "#4a667a",
-    }
+    };
 
     const X = d3.map(data, (x) => x.date);
     const Y = d3.map(data, (y) => y.close);
@@ -154,7 +157,7 @@ export class LineChartComponent implements AfterViewInit {
       .on("pointerleave", pointerLeave)
       .on("touchstart", event => event.preventDefault());
 
-    function pointerMove(event: any): void {
+    function pointerMove(event: MouseEvent): void {
       const i = X.findIndex(x => x.toDateString() === xScale.invert(d3.pointer(event)[0]).toDateString());
 
       // short-circuit for dates without data
@@ -188,14 +191,14 @@ export class LineChartComponent implements AfterViewInit {
 
       tooltip.select("line").attr('y2', size.height - margin.bottom - margin.top/2 - yScale(Y[i]) + 2);
 
-      const {x, y, width: w, height: h} = (text.node() as SVGGraphicsElement).getBBox();
+      const { y, width: w, height: h } = (text.node() as SVGGraphicsElement).getBBox();
       text.attr("transform", `translate(${-w / 2},${20 - y})`);
 
       path
         .attr("d", `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`)
         .attr("transform", `translate(0, 5)`);
 
-      svg.property("value", O[i]).dispatch("input", {bubbles: true} as d3.CustomEventParameters);
+      svg.property("value", O[i]).dispatch("input", { bubbles: true } as d3.CustomEventParameters);
     }
 
     function pointerLeave() {
@@ -216,7 +219,7 @@ export class LineChartComponent implements AfterViewInit {
         .attr("stop-color", "#00d5bd"))
       .call(el => el.append("stop")
         .attr("offset", "100")
-        .attr("stop-color", "#24c1ed"))
+        .attr("stop-color", "#24c1ed"));
 
     defs.append("linearGradient")
       .attr("id", "shadowGradient")
@@ -269,6 +272,6 @@ export class LineChartComponent implements AfterViewInit {
     const formatDate = xScale.tickFormat(undefined, "%b %-d, %Y");
     const formatValue = yScale.tickFormat(100);
 
-    return (i: number, number?: number, data?: IApiModel[]) => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
+    return (i: number, _number?: number, _data?: IApiModel[]) => `${formatDate(X[i])}\n${formatValue(Y[i])}`;
   }
 }
