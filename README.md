@@ -2,7 +2,7 @@
 
 Simple desktop-only app done with Angular and Angular Material.
 
-Stock trends charts on D3js and a real-time chat using websockets.   
+Stock trends charts on D3js and a real-time chat using websockets.
 
 ## Running project
 
@@ -10,13 +10,23 @@ Run the following commands:
 
 ```
 git clone https://github.com/alisabox/d3js.git
-cd events4friends-markup
+cd d3js
+```
+
+To launch the client run:
+
+```
+cd client
 npm install
 npm start
 ```
-To run the websockets server run:
+
+To launch the server run:
+
 ```
-npm run server
+cd server
+npm install
+npm start
 ```
 
 ## UI
