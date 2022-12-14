@@ -38,6 +38,6 @@ import { CommentsComponent } from './components/comments/comments.component';
   providers: [
     ApiService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

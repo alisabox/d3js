@@ -1,6 +1,6 @@
 import { IApiModel } from "../models/api.model";
 
-const rawDataTesla: any[] = [
+const rawDataTesla = [
   {
     "date": "2021-01-04T14:30:00.000Z",
     "close": 243.26,
@@ -1861,9 +1861,9 @@ const rawDataTesla: any[] = [
     "date": "2022-11-04T14:22:12.000Z",
     "close": 221.9,
   },
-];
+] as unknown as IApiModel[];
 
-const rawDataApple: any[] = [
+const rawDataApple = [
   {
     "date": "2021-01-07T14:30:00.000Z",
     "close": 89.36,
@@ -2348,9 +2348,9 @@ const rawDataApple: any[] = [
     "date": "2022-11-04T13:30:00.000Z",
     "close": 86.7,
   },
-];
+] as unknown as IApiModel[];
 
-const rawDataMS: any[] = [
+const rawDataMS = [
   {
     "date": "2021-01-04T14:30:00.000Z",
     "close": 217.69,
@@ -4211,9 +4211,9 @@ const rawDataMS: any[] = [
     "date": "2022-11-04T13:30:00.000Z",
     "close": 221.39,
   },
-];
+] as unknown as IApiModel[];
 
-const rawDataGoogle: any[] = [
+const rawDataGoogle = [
   {
     "date": "2021-01-04T14:30:00.000Z",
     "close": 129.41,
@@ -6074,7 +6074,7 @@ const rawDataGoogle: any[] = [
     "date": "2022-11-04T13:30:00.000Z",
     "close": 138.38,
   },
-];
+] as unknown as IApiModel[];
 
 export const dataTesla: IApiModel[] = rawDataTesla.map(item => {
   item.date = new Date(item.date);
