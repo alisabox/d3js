@@ -28,6 +28,7 @@ const DB = process.env.DATABASE?.replace(
 ) ?? '';
 
 mongoose
+  .set('strictQuery', false) // as per Mongoose DeprecationWarning
   .connect(DB)
   .then(() => console.log('Connected to DB'));
 
