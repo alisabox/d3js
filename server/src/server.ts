@@ -1,11 +1,9 @@
 /* eslint-disable no-console */
-import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import http from 'http';
 import { WebSocket, WebSocketServer } from 'ws';
+import config from './../config';
 import app from './app';
-
-dotenv.config({ path: './config.env' });
 
 const server = http.createServer(app);
 
@@ -22,17 +20,14 @@ webSocket.on('connection', socket => {
   });
 });
 
-const DB = process.env.DATABASE?.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD ?? ''
-) ?? '';
+const DB = config.database.replace('<PASSWORD>', config.databasePassword);
 
 mongoose
   .set('strictQuery', false) // as per Mongoose DeprecationWarning
   .connect(DB)
   .then(() => console.log('Connected to DB'));
 
-const port = process.env.PORT || 4300;
+const port = config.port || 4300;
 
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);

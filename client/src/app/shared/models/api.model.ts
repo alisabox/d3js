@@ -25,4 +25,5 @@ export interface IDataSet {
 export interface IMessage {
   message: string;
   name: string;
+  token: string;
 }

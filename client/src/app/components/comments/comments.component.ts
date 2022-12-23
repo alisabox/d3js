@@ -27,7 +27,9 @@ export class CommentsComponent {
       return;
     }
 
-    this.sendMessageEvent.emit({ message, name });
+    const token = 'token';
+
+    this.sendMessageEvent.emit({ message, name, token });
     this.commentFormControl.reset(null);
     this.nameFormControl.disable();
   }
