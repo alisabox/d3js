@@ -1,6 +1,11 @@
-import { WebSocket, WebSocketServer } from 'ws';
+/* eslint-disable no-console */
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 import http from 'http';
+import { WebSocket, WebSocketServer } from 'ws';
 import app from './app';
+
+dotenv.config({ path: './config.env' });
 
 const server = http.createServer(app);
 
@@ -17,9 +22,17 @@ webSocket.on('connection', socket => {
   });
 });
 
-const PORT = 4300;
+const DB = process.env.DATABASE?.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD ?? ''
+) ?? '';
 
-server.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server is running on port ${PORT}`);
+mongoose
+  .connect(DB)
+  .then(() => console.log('Connected to DB'));
+
+const port = process.env.PORT || 4300;
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
