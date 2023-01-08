@@ -8,8 +8,8 @@ import {
 import * as d3 from 'd3';
 import {
   IApiModel,
-  IDataSet,
-} from "../../shared/models/api.model";
+  IApiResponse,
+} from "../../models/api.model";
 
 @Component({
   selector: 'app-line-chart',
@@ -23,10 +23,10 @@ export class LineChartComponent implements AfterViewInit {
   public container: HTMLElement | null = null;
 
   @Input()
-  set item(value: IDataSet) {
-    this._symbol = value.symbol;
+  set item(value: IApiResponse) {
+    this._symbol = value.key;
     this._name = value.name;
-    this._data = value.data.slice(value.data.length - 365);
+    this._data = value.data.slice(0, 365);
   }
 
   constructor(
@@ -70,7 +70,7 @@ export class LineChartComponent implements AfterViewInit {
       axis: "#4a667a",
     };
 
-    const X = d3.map(data, (x) => x.date);
+    const X = d3.map(data, (x) => new Date(x.date));
     const Y = d3.map(data, (y) => y.close);
     const O = d3.map(data, d => d);
     const I = d3.map(data, (_, i) => i);
@@ -78,10 +78,10 @@ export class LineChartComponent implements AfterViewInit {
     // Compute default domains.
     const xDomain = d3.extent(X);
     const maxY = d3.max(Y);
-    const yDomain = ['0', !!maxY && maxY > 400 ? maxY.toString() : 400];
+    const yDomain = ['0', !!maxY && maxY > 400 ? maxY.toString() : '400'];
 
     // Construct scales and axes.
-    const xScale = d3.scaleUtc(xDomain as Iterable<d3.NumberValue>, [margin.left, size.width - margin.right]);
+    const xScale = d3.scaleUtc(xDomain as Iterable<Date>, [margin.left, size.width - margin.right]);
     const yScale = d3.scaleLinear(yDomain as Iterable<d3.NumberValue>, [size.height - margin.bottom, margin.top]);
     const xAxis = d3.axisBottom(xScale).ticks(size.width / 80).tickSizeOuter(0);
     const yAxis = d3.axisLeft(yScale).ticks(size.height / 50);
@@ -189,7 +189,7 @@ export class LineChartComponent implements AfterViewInit {
           .attr("font-weight", (_, i) => i ? null : "bold")
           .text(d => d));
 
-      tooltip.select("line").attr('y2', size.height - margin.bottom - margin.top/2 - yScale(Y[i]) + 2);
+      tooltip.select("line").attr('y2', size.height - margin.bottom - margin.top / 2 - yScale(Y[i]) + 2);
 
       const { y, width: w, height: h } = (text.node() as SVGGraphicsElement).getBBox();
       text.attr("transform", `translate(${-w / 2},${20 - y})`);
@@ -255,7 +255,7 @@ export class LineChartComponent implements AfterViewInit {
       .style("display", "none");
 
     tooltip.append("line")
-      .attr("y",3)
+      .attr("y", 3)
       .attr("stroke", "#4a667a")
       .attr("stroke-opacity", 0.5)
       .attr("stroke-width", 1)

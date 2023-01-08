@@ -5,7 +5,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { IMessage } from "../../shared/models/api.model";
+import { IMessage } from "../../models/api.model";
 
 @Component({
   selector: 'app-comments',

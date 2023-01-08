@@ -15,6 +15,7 @@ mat-toolbar {
   from {
     text-shadow: 0 0 23px #fff, 0 0 20px #00d5bd, 0 0 30px #00d5bd, 0 0 30px #00d5bd, 0 0 43px #00d5bd, 0 0 40px #00d5bd;
   }
+
   to {
     text-shadow: 0 0 33px #24c1ed, 0 0 30px #24c1ed, 0 0 40px #24c1ed, 0 0 40px #24c1ed, 0 0 53px #24c1ed, 0 0 50px #24c1ed;
   }
@@ -23,6 +24,7 @@ mat-toolbar {
 mat-drawer-container {
   height: calc(100vh - 64px);
   background-color: rgb(30, 39, 48);
+  padding: 20px 0;
 }
 
 mat-drawer-content {
@@ -30,6 +32,7 @@ mat-drawer-content {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  padding: 20px 0;
   gap: 30px;
 }
 
