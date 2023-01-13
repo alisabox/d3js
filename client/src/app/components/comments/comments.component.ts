@@ -29,7 +29,7 @@ export class CommentsComponent {
 
     const token = 'token';
 
-    this.sendMessageEvent.emit({ message, name, token });
+    this.sendMessageEvent.emit({ senderId: '63a5ccc2662547581593c5fc', content: message, senderName: name, token });
     this.commentFormControl.reset(null);
     this.nameFormControl.disable();
   }

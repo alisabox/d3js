@@ -20,7 +20,8 @@ export interface IApiFullModel {
 }
 
 export interface IMessage {
-  message: string;
-  name: string;
+  senderId: string;
+  senderName: string;
+  content: string;
   token: string;
 }

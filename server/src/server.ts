@@ -4,14 +4,17 @@ import http from 'http';
 import { WebSocket, WebSocketServer } from 'ws';
 import config from './../config';
 import app from './app';
+import { Message } from "./models/messageModel";
 
 const server = http.createServer(app);
 
 const webSocket = new WebSocketServer({ server });
 
 webSocket.on('connection', socket => {
-  socket.on('message', (data, isBinary) => {
-    const message = isBinary ? data : String(data);
+  socket.on('message', async (data, isBinary) => {
+    const message = String(data);
+    console.log(JSON.parse(message));
+    await Message.create(JSON.parse(message));
     webSocket.clients.forEach(client => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(message);

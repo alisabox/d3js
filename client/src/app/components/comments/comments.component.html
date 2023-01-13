@@ -3,11 +3,11 @@
     <div>
       <mat-card
         *ngFor="let message of messages"
-        [ngClass]="message.name === nameFormControl.value ? 'user-comment' : 'comment'"
+        [ngClass]="message.senderName === nameFormControl.value ? 'user-comment' : 'comment'"
       >
-        <mat-card-subtitle>{{ message.name }}</mat-card-subtitle>
+        <mat-card-subtitle>{{ message.senderName }}</mat-card-subtitle>
         <mat-card-content>
-          <p>{{ message.message }}</p>
+          <p>{{ message.content }}</p>
         </mat-card-content>
       </mat-card>
     </div>
