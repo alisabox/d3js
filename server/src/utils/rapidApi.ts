@@ -19,8 +19,8 @@ const updateDatabase = async (symbol: string, name: string) => {
   const now = dayjs();
   const daysDifference = now.diff(lastUpdateDate, 'days');
 
-  // database is updated from Tuesday to Saturday
-  if (daysDifference > 1 && now.day() > 1) {
+  // database is updated from Wednesday to Saturday
+  if (daysDifference > 1 && now.day() > 2) {
     console.log(`Requesting data for ${name} from RapidAPI`);
 
     const response = await axios.request({ ...options, params: { symbol } });
