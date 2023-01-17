@@ -11,14 +11,3 @@ export const getAllMessages = catchAsync(async (req, res) => {
     data: messages,
   });
 });
-
-export const saveMessage = catchAsync(async (req, res) => {
-  const newMessage = await Message.create(req.body);
-
-  res.status(201).json({
-    status: 'success',
-    data: {
-      tour: newMessage,
-    },
-  });
-});

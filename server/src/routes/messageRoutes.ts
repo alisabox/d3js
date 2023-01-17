@@ -1,14 +1,10 @@
 import express from 'express';
-import {
-  getAllMessages,
-  saveMessage,
-} from '../controllers/messageController';
+import { getAllMessages } from '../controllers/messageController';
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(getAllMessages)
-  .post(saveMessage);
+  .get(getAllMessages);
 
 export default router;
