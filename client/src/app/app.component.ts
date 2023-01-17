@@ -2,11 +2,7 @@ import {
   Component,
   OnInit,
 } from '@angular/core';
-import {
-  IApiResponse,
-  IMessage,
-} from "./models/api.model";
-import { webSocket } from "rxjs/webSocket";
+import { IApiResponse } from "./models/api.model";
 import { ApiService } from './services/api.service';
 
 @Component({
@@ -23,21 +19,14 @@ export class AppComponent implements OnInit {
     { key: 'GOOG', data: [], name: 'Google' },
   ];
 
-  private _socket = webSocket<IMessage>('ws://localhost:4300/');
-  private _messages: IMessage[] = [];
-
   public get dataSet(): IApiResponse[] {
     return this._dataSet;
-  }
-
-  public get messages(): IMessage[] {
-    return this._messages;
   }
 
   constructor(private readonly _apiService: ApiService) { }
 
   public ngOnInit(): void {
-    this._apiService.get(this._keys).subscribe(data => {
+    this._apiService.getStocks(this._keys).subscribe(data => {
       this._dataSet = [];
 
       data.map(item => {
@@ -48,11 +37,5 @@ export class AppComponent implements OnInit {
         });
       });
     });
-
-    this._socket.subscribe((data) => this._messages = [...this._messages, data]);
-  }
-
-  public sendMessage(data: IMessage) {
-    this._socket.next(data);
   }
 }

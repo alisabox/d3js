@@ -1,10 +1,10 @@
 import {
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  OnInit,
 } from '@angular/core';
+import { webSocket } from "rxjs/webSocket";
 import { FormControl } from "@angular/forms";
+import { ApiService } from 'src/app/services/api.service';
 import { IMessage } from "../../models/api.model";
 
 @Component({
@@ -12,15 +12,26 @@ import { IMessage } from "../../models/api.model";
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css'],
 })
-export class CommentsComponent {
+export class CommentsComponent implements OnInit {
+  private _socket = webSocket<IMessage>('ws://localhost:4300/');
+  private _messages: IMessage[] = [];
+
   public nameFormControl = new FormControl('', []);
   public commentFormControl = new FormControl('', []);
 
-  @Input()
-  public messages: IMessage[] = [];
+  public get messages(): IMessage[] {
+    return this._messages;
+  }
 
-  @Output()
-  public sendMessageEvent = new EventEmitter();
+  constructor(private readonly _apiService: ApiService) { }
+
+  public ngOnInit(): void {
+    this._apiService.getMessages().subscribe((messages) => {
+      this._messages = messages;
+    });
+
+    this._socket.subscribe((data) => this._messages.push(data));
+  }
 
   public sendMessage(message: string, name: string): void {
     if (!message.length || !name.length) {
@@ -29,7 +40,7 @@ export class CommentsComponent {
 
     const token = 'token';
 
-    this.sendMessageEvent.emit({ senderId: '63a5ccc2662547581593c5fc', content: message, senderName: name, token });
+    this._socket.next({ senderId: '63a5ccc2662547581593c5fc', content: message, senderName: name, token });
     this.commentFormControl.reset(null);
     this.nameFormControl.disable();
   }

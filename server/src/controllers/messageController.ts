@@ -8,9 +8,7 @@ export const getAllMessages = catchAsync(async (req, res) => {
   res.status(200).json({
     status: 'success',
     results: messages.length,
-    data: {
-      messages,
-    },
+    data: messages,
   });
 });
 
