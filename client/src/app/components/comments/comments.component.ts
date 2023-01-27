@@ -7,13 +7,16 @@ import { FormControl } from "@angular/forms";
 import { ApiService } from 'src/app/services/api.service';
 import { IMessage } from "../../models/api.model";
 
+const PROD_URL = 'd3js-theta.vercel.app';
+const DEVELOP_URL = '127.0.0.1:4300';
+
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css'],
 })
 export class CommentsComponent implements OnInit {
-  private _socket = webSocket<IMessage>('ws://localhost:4300/');
+  private _socket = webSocket<IMessage>(`ws://${PROD_URL}/`);
   private _messages: IMessage[] = [];
 
   public nameFormControl = new FormControl('', []);

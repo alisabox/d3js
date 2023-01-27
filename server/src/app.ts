@@ -21,7 +21,7 @@ rapidApi();
 app.use(compression());
 app.use(helmet());
 
-app.use(cors({ origin: ['http://localhost:4200'] }));
+app.use(cors({ origin: ['http://localhost:4200', 'https://alisabox.github.io'] }));
 app.use('/api/v1/messages', messageRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/stocks', stocksRouter);

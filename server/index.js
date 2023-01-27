@@ -406,7 +406,8 @@ $6be4ccaf8b42a818$var$app.use((0, ($parcel$interopDefault($QIS2k$compression)))(
 $6be4ccaf8b42a818$var$app.use((0, ($parcel$interopDefault($QIS2k$helmet)))());
 $6be4ccaf8b42a818$var$app.use((0, ($parcel$interopDefault($QIS2k$cors)))({
     origin: [
-        "http://localhost:4200"
+        "http://localhost:4200",
+        "https://alisabox.github.io"
     ]
 }));
 $6be4ccaf8b42a818$var$app.use("/api/v1/messages", (0, $c04bedf3d40a5dbc$export$2e2bcd8739ae039));
