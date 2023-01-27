@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import compression from 'compression';
+import helmet from 'helmet';
 import messageRouter from './routes/messageRoutes';
 import userRouter from './routes/userRoutes';
 import stocksRouter from './routes/stocksRoutes';
@@ -15,6 +17,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json());
 
 rapidApi();
+
+app.use(compression());
+app.use(helmet());
 
 app.use(cors({ origin: ['http://localhost:4200'] }));
 app.use('/api/v1/messages', messageRouter);

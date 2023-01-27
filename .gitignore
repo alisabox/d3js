@@ -42,4 +42,7 @@ yarn-error.log
 .DS_Store
 Thumbs.db
 
+#Parcel
+/server/.parcel-cache
+
 /client/src/environments/environment.ts
