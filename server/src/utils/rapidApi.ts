@@ -23,10 +23,14 @@ const updateDatabase = async (symbol: string, name: string) => {
   if (daysDifference > 1 && now.day() > 2) {
     console.log(`Requesting data for ${name} from RapidAPI`);
 
-    const response = await axios.request({ ...options, params: { symbol } });
+    try {
+      const response = await axios.request({ ...options, params: { symbol } });
 
-    await Stocks.deleteOne({ key: symbol });
-    await Stocks.create({ key: symbol, name, data: response.data.prices });
+      await Stocks.deleteOne({ key: symbol });
+      await Stocks.create({ key: symbol, name, data: response.data.prices });
+    } catch (e) {
+      console.log('Couldn\'t fetch data from rapid API');
+    }
   }
 };
 
